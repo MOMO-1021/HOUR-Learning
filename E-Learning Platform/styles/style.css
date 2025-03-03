@@ -1,0 +1,170 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 62.5%; /* 10px */
+}
+.header{
+    padding: 0 3rem;
+    justify-content: space-between;
+    flex-direction: column;
+    z-index: 100;
+}
+.header__top{
+    width: 100%;
+    justify-content: space-between;
+}
+.header__logo{
+    max-width: 12rem;
+    margin-left: 2rem;
+}
+.header__search{
+    width: 100%;
+    display: flex;
+    max-width: 150vh;
+    gap: 1rem;
+    align-items: center;
+    position: relative;
+}
+.header__search::after{
+    content: '|';
+    position: absolute;
+    right: 11.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2.3rem;
+    pointer-events: none; /* Prevent interaction with the pseudo-element */
+    color: #ddd;
+}
+.header__search:focus-within::after{
+    color: black;
+    animation: blink 0.9s infinite;
+}
+@keyframes blink{
+    0% {opacity: 1;}
+    50% {opacity: 0;}
+    100% {opacity: 1;}
+}
+.header__search .input{
+    padding: 1.2rem 6rem;
+    border: 2px solid #ddd;
+    border-radius: 3rem;
+    font-size: 1.6rem;
+    flex: 1; /* flex-grow: 1, flex-shrink: 1 and flex-basis: 0*/
+    transition: border-color 0.3s ease;
+}
+.header__search .input:focus{
+    border-color: #5ca9e9;
+    outline: none;
+}
+.header__search .btn{
+    padding: 0.8rem;
+    background: #5ca9e9;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.6rem;
+    transition: background-color 0.3s ease;
+    width: 5rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header__search .btn:hover{
+    background: #4a8dc7;
+}
+.header__search .search{
+    width: 2.4rem; 
+    height: 2.4rem;
+    filter: invert(1);
+}
+.nav__list{
+    display: flex;
+    list-style: none;
+    gap: 5rem;
+    justify-content: space-around;
+    cursor: pointer;
+}
+.nav__list li{
+    border: 0.2rem solid transparent;
+    padding: 1.4rem 1rem;
+    border-radius: 3rem;
+    font-size: 2.4rem;
+    transition: all 0.3s ease; 
+    display: flex;
+    align-items: center;
+}
+.nav__list li:hover{
+    background: #5ca9e9;
+    color: white;
+}
+.list__svg{
+    display: flex;
+    gap: 0.6rem;
+}
+.list__svg__img{
+    max-width: 3rem;
+}
+.list__svg li:hover .list__svg__img{ /*Descendant Combinator (space character):
+    The space between elements means "look inside/nested within"*/
+    filter: invert(1);
+}
+.list__dropDown{
+    position: relative;
+    padding: 1rem 3rem;
+}
+/* Create invisible hover zone */
+.list__dropDown::after{
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 1.5rem; /* Height of the visual gap*/
+    background: transparent;
+    z-index: 1001;
+    pointer-events: auto !important; /* Enable hover detection */
+    opacity: 0; /* Keep invisible but interactive */
+}
+.list__dropDown-content{
+    position: absolute;
+    top: calc(100% + 1rem); /* Add space between nav item and dropdown */
+    left: 0;
+    min-width: 24rem;
+    max-height: 40rem; /* Fixed height */
+    overflow-y: auto;
+    background: #fff;
+    box-shadow: 0 1rem 3rem rgba(0,0,0,0.15);
+    border-radius: 1rem;
+    padding: 1.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-1rem);
+    transition: 
+        opacity 0.2s ease,
+        visibility 0.2s ease,
+        transform 0.2s ease; /* Add transform to transition */
+    z-index: 1002;
+    pointer-events: none;
+}
+.list__dropDown-content a{
+    color: #333;
+    font-size: 1.6rem;
+    padding: 1.2rem 2.5rem;
+    text-decoration: none;
+    display: block;
+    transition: all 0.2s ease;
+}
+.list__dropDown-content a:hover{
+    background: #f5f9ff;
+    transform: translateX(0.5rem);
+    color: #5ca9e9;
+}
+/* Show DropDown on Hover */
+.list__dropDown:hover .list__dropDown-content,.list__dropDown:hover::after{
+    opacity: 1;
+    visibility: visible; 
+    transform: translateY(0);
+    pointer-events: auto;
+}
